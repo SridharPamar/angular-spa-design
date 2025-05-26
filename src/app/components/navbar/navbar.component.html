@@ -1,0 +1,9 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a [routerLink]="['/people']">{{ title }}</a>
+  </div>
+  <div class="navbar-menu">
+    <a [routerLink]="['/people']" routerLinkActive="active">People List</a>
+    <a [routerLink]="['/people/add']" routerLinkActive="active">Add Person</a>
+  </div>
+</nav>

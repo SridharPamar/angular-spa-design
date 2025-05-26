@@ -1,0 +1,86 @@
+<div class="person-edit-container">
+  <h1>{{ isEditMode ? 'Edit Person' : 'Add Person' }}</h1>
+
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+
+  <form *ngIf="!loading" [formGroup]="personForm" (ngSubmit)="onSubmit()" class="person-form">
+    <div class="form-group">
+      <label for="firstName">First Name *</label>
+      <input 
+        type="text" 
+        id="firstName" 
+        formControlName="firstName" 
+        [class.invalid]="firstName.invalid && firstName.touched"
+      >
+      <div *ngIf="firstName.invalid && firstName.touched" class="error-hint">
+        <span *ngIf="firstName.errors?.required">First name is required</span>
+        <span *ngIf="firstName.errors?.maxlength">First name cannot exceed 50 characters</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name *</label>
+      <input 
+        type="text" 
+        id="lastName" 
+        formControlName="lastName" 
+        [class.invalid]="lastName.invalid && lastName.touched"
+      >
+      <div *ngIf="lastName.invalid && lastName.touched" class="error-hint">
+        <span *ngIf="lastName.errors?.required">Last name is required</span>
+        <span *ngIf="lastName.errors?.maxlength">Last name cannot exceed 50 characters</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input 
+        type="email" 
+        id="email" 
+        formControlName="email" 
+        [class.invalid]="email.invalid && email.touched"
+      >
+      <div *ngIf="email.invalid && email.touched" class="error-hint">
+        <span *ngIf="email.errors?.required">Email is required</span>
+        <span *ngIf="email.errors?.email">Please enter a valid email address</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone</label>
+      <input 
+        type="tel" 
+        id="phone" 
+        formControlName="phone" 
+        [class.invalid]="phone.invalid && phone.touched"
+      >
+      <div *ngIf="phone.invalid && phone.touched" class="error-hint">
+        <span *ngIf="phone.errors?.pattern">Please enter a valid phone number</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="address">Address</label>
+      <textarea 
+        id="address" 
+        formControlName="address" 
+        rows="3"
+      ></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="cancel-button" [routerLink]="['/people']">Cancel</button>
+      <button 
+        type="submit" 
+        class="submit-button" 
+        [disabled]="submitting"
+      >
+        {{ submitting ? 'Saving...' : (isEditMode ? 'Update' : 'Save') }}
+      </button>
+    </div>
+  </form>
+</div>
